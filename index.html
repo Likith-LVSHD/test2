@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Gmail – Sign in</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --primary: #1a73e8;
+    --txt: #202124;
+    --sub: #5f6368;
+    --line: #dadce0;
+    --shadow: rgba(60,64,67,.15);
+  }
+  [data-theme="dark"]{
+    --bg: #121212;
+    --card: rgba(255,255,255,.08);
+    --txt: #e8eaed;
+    --sub: #9aa0a6;
+    --line: rgba(255,255,255,.2);
+    --shadow: rgba(0,0,0,.4);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"Google Sans",Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    color:var(--txt);
+    transition:background .4s;
+  }
+  .toggle{
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:24px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  /* --- Card --- */
+  .card{
+    width:100%;
+    max-width:400px;
+    padding:50px 40px;
+    border-radius:20px;
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 8px 30px var(--shadow);
+    backdrop-filter:blur(20px);
+    animation:fadeIn .7s ease;
+  }
+  @keyframes fadeIn{
+    from{transform:translateY(20px);opacity:0}
+    to{transform:translateY(0);opacity:1}
+  }
+  .logo{width:92px;margin-bottom:20px;display:block;margin-left:auto;margin-right:auto}
+
+  /* --- Typography --- */
+  h1{font-size:26px;font-weight:400;text-align:center}
+  .sub{color:var(--sub);text-align:center;margin:6px 0 30px}
+
+  /* --- Input --- */
+  .field{position:relative;margin-bottom:28px}
+  .field input{
+    width:100%;
+    height:56px;
+    padding:20px 16px 6px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-size:16px;
+    background:transparent;
+    color:var(--txt);
+    transition:border .3s, box-shadow .3s;
+  }
+  .field label{
+    position:absolute;
+    left:16px;
+    top:18px;
+    color:var(--sub);
+    pointer-events:none;
+    transition:.2s;
+  }
+  .field input:focus+label,
+  .field input:not(:placeholder-shown)+label{
+    top:6px;
+    font-size:12px;
+    color:var(--primary);
+  }
+  .field input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px rgba(26,115,232,.2);
+  }
+
+  /* --- Buttons / Links --- */
+  .forgot{display:block;margin:-15px 0 25px;color:var(--primary);font-size:14px}
+  .actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
+  .actions a{color:var(--primary);font-weight:500}
+  .btn{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:11px 28px;
+    border-radius:6px;
+    font-size:15px;
+    cursor:pointer;
+    transition:background .3s, transform .15s;
+  }
+  .btn:hover{background:#1765cc}
+  .btn:active{transform:scale(.96)}
+
+  /* --- Avatar --- */
+  .avatar{
+    width:80px;height:80px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 15px;
+  }
+
+  /* --- Footer --- */
+  footer{
+    width:100%;
+    max-width:400px;
+    margin-top:30px;
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:var(--sub);
+  }
+  footer a{margin-left:18px;color:var(--primary)}
+
+  /* --- Hidden --- */
+  .hidden{display:none}
+</style>
+</head>
+<body>
+
+<!-- Dark / Light toggle -->
+<div class="toggle" id="themeToggle">🌙</div>
+
+<!-- ===== EMAIL PAGE ===== -->
+<section id="emailPage" class="card">
+  <img class="logo" src="https://accounts.google.com/gsi/style/logos/googlelogo_color_92x36dp.png" alt="Google">
+  <h1>Sign in</h1>
+  <p class="sub">Use your Google Account</p>
+
+  <form id="emailForm">
+    <div class="field">
+      <input type="email" id="email" placeholder=" " required />
+      <label for="email">Email or phone</label>
+    </div>
+    <a href="#" class="forgot">Forgot email?</a>
+
+    <div class="actions">
+      <a href="#">Create account</a>
+      <button class="btn" type="submit">Next</button>
+    </div>
+  </form>
+</section>
+
+<!-- ===== PASSWORD PAGE ===== -->
+<section id="passwordPage" class="card hidden">
+  <div style="text-align:center">
+    <img id="avatar" class="avatar" src="https://lh3.googleusercontent.com/a/default-user=s80-c" alt="avatar">
+    <h2 id="displayEmail" style="font-size:16px;font-weight:500;margin-bottom:6px"></h2>
+    <p class="sub">Welcome back! Enter your password</p>
+  </div>
+
+  <form id="passwordForm">
+    <div class="field">
+      <input type="password" id="password" placeholder=" " required />
+      <label for="password">Password</label>
+    </div>
+    <a href="#" class="forgot">Forgot password?</a>
+
+    <div class="actions">
+      <span class="back" style="color:var(--primary);cursor:pointer;font-weight:500">Back</span>
+      <button class="btn" type="submit">Next</button>
+    </div>
+  </form>
+</section>
+
+<!-- ===== LOADING & INBOX ===== -->
+<section id="loadingPage" class="card hidden">
+  <div style="text-align:center;font-size:18px">Signing you in<span class="dots"></span></div>
+</section>
+
+<section id="inboxPage" class="card hidden">
+  <h1 style="text-align:center">Welcome to your Inbox</h1>
+  <p class="sub">This is a static demo – no real data.</p>
+</section>
+
+<script>
+/* ---------- Theme toggle ---------- */
+const toggle = document.getElementById('themeToggle');
+toggle.onclick = () => {
+  const dark = document.body.dataset.theme !== 'dark';
+  document.body.dataset.theme = dark ? 'dark' : '';
+  toggle.textContent = dark ? '☀️' : '🌙';
+};
+
+/* ---------- Flow ---------- */
+const emailPage   = document.getElementById('emailPage');
+const passwordPage= document.getElementById('passwordPage');
+const loadingPage = document.getElementById('loadingPage');
+const inboxPage   = document.getElementById('inboxPage');
+const displayEmail= document.getElementById('displayEmail');
+const avatar      = document.getElementById('avatar');
+
+document.getElementById('emailForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const mail = document.getElementById('email').value.trim();
+  displayEmail.textContent = mail;
+  // crude avatar
+  avatar.src = `https://www.gravatar.com/avatar/${[...mail].reduce((a,b)=>((a<<5)-a+b.charCodeAt(0))&0xffffffff,0)}?d=mp&s=80`;
+  slideTo(passwordPage);
+});
+
+document.getElementById('passwordForm').addEventListener('submit', e => {
+  e.preventDefault();
+  slideTo(loadingPage);
+  setTimeout(() => slideTo(inboxPage), 2000);
+});
+
+document.querySelector('.back').addEventListener('click', () => slideTo(emailPage));
+
+function slideTo(showPage){
+  [emailPage,passwordPage,loadingPage,inboxPage].forEach(p=>p.classList.add('hidden'));
+  showPage.classList.remove('hidden');
+}
+</script>
+
+<footer>
